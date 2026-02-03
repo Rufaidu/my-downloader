@@ -1,0 +1,28 @@
+name: Build App
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Python
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Dependencies
+        run: pip install flet yt-dlp
+      - name: Setup Flutter
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Build APK
+        run: |
+          # This command helps Flet find everything it needs
+          flet build apk --verbose 
+      - name: Upload APK
+      - uses: actions/upload-artifact@v4
+        with:
+          name: universal-downloader-apk
+          path: build/apk/*.apk
+
+          
