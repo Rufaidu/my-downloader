@@ -1,5 +1,7 @@
 name: Build App
-on: [push]
+on: 
+   push:            #This runs it when you save the code
+   workflow_dispatch:     #THIS is the line that add the Manual Button
 jobs:
   build:
     runs-on: ubuntu-latest
